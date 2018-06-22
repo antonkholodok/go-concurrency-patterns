@@ -14,3 +14,18 @@ func multiplexor(inputA, inputB <-chan string) <-chan string {
 	}()
 	return c
 }
+
+func selectMultiplexor(inputA, inputB <-chan string) <-chan string {
+	c := make(chan string)
+	go func() {
+		for {
+			select {
+			case s := <-inputA:
+				c <- s
+			case s := <-inputB:
+				c <- s
+			}
+		}
+	}()
+	return c
+}

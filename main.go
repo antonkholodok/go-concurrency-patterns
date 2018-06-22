@@ -26,7 +26,7 @@ func generatorExec() {
 }
 
 func multiplexorExec() {
-	c := multiplexor(generator("foo"), generator("bar"))
+	c := selectMultiplexor(generator("foo"), generator("bar"))
 	for i := 0; i < 10; i++ {
 		fmt.Println(<-c)
 	}
