@@ -23,6 +23,8 @@ func multiplexor(inputA, inputB <-chan string) <-chan string {
 func selectMultiplexor(inputA, inputB <-chan string) <-chan string {
 	c := make(chan string)
 	go func() {
+		// global timeout for the entire loop:
+		// timeout := time.After(5 * time.Second)
 		for {
 			select {
 			case s := <-inputA:
