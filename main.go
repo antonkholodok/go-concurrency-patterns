@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	generatorExec()
+	multiplexorExec()
 }
 
 func boringExec() {
@@ -16,9 +16,19 @@ func boringExec() {
 }
 
 func generatorExec() {
-	c := generator("generator")
+	foo := generator("foo")
+	bar := generator("bar")
 	for i := 0; i < 5; i++ {
-		fmt.Printf("Generator said: %q\n", <-c)
+		fmt.Println(<-foo)
+		fmt.Println(<-bar)
+	}
+	fmt.Println("Leaving...")
+}
+
+func multiplexorExec() {
+	c := multiplexor(generator("foo"), generator("bar"))
+	for i := 0; i < 10; i++ {
+		fmt.Println(<-c)
 	}
 	fmt.Println("Leaving...")
 }
