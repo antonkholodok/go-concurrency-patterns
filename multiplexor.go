@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"time"
+)
+
 func multiplexor(inputA, inputB <-chan string) <-chan string {
 	c := make(chan string)
 	go func() {
@@ -24,6 +29,9 @@ func selectMultiplexor(inputA, inputB <-chan string) <-chan string {
 				c <- s
 			case s := <-inputB:
 				c <- s
+			case <-time.After(1 * time.Second):
+				fmt.Println("Time out")
+				return
 			}
 		}
 	}()
