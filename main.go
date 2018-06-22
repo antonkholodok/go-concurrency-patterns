@@ -1,9 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 func main() {
-	multiplexorExec()
+	timedSearch()
 }
 
 func boringExec() {
@@ -31,4 +35,13 @@ func multiplexorExec() {
 		fmt.Println(<-c)
 	}
 	fmt.Println("Leaving...")
+}
+
+func timedSearch() {
+	rand.Seed(time.Now().UnixNano())
+	start := time.Now()
+	results := SearchMe("golang")
+	elapsed := time.Since(start)
+	fmt.Println(results)
+	fmt.Println(elapsed)
 }
